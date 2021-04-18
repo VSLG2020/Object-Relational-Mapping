@@ -2,49 +2,27 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
 
-class Tag extends Model {}
+class Tag extends Model { }
 
 Tag.init(
+  // define columns
   {
-    // define columns
-// id
-id:{
-// Integer
-
-// Doesn't allow null values
-
-// Set as primary key
-
-// Uses auto increment
-},
-// tag_name
-tag_name:{
-// String
-
-// ProductTag
-
-// id
-
-// Integer
-
-// Doesn't allow null values
-
-// Set as primary key
-
-// Uses auto increment
-},
-// product_id
-product_id:{
-// Integer
-
-// References the product model's id
-
-// tag_id
-
-// Integer
-
-// References the tag model's id
-}
+    // id
+    id: {
+      // Integer
+      type: DataTypes.INTEGER,
+      // Doesn't allow null values
+      allowNull: false,
+      // Set as primary key
+      primaryKey: true,
+      // Uses auto increment
+      autoIncrement: true,
+    },
+    // tag_name
+    tag_name: {
+      // String
+      type: DataTypes.STRING
+    }
   },
   {
     sequelize,
