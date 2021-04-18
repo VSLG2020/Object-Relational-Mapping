@@ -7,15 +7,15 @@ class Category extends Model { }
 Category.init(
   {
     // define columns example:
-    //       password: {
+    //     password: {
     //     type: DataTypes.STRING,
     //     allowNull: false,
-    //     validate: {
-    //       len: [4]
-    //     }
+    //     validate: {len: [4] }
     //   }
     // },
+    
     ////reqs/////
+    
     id: {
       // Integer
       type: DataTypes.INTEGER,
