@@ -8,6 +8,10 @@ const sequelize = require('../../config/connection');
 router.get('/', (req, res) => {
   // find all categories
   Category.findAll({
+    attributes: [
+      'id',
+      'category_name'
+    ],
     // be sure to include its associated Products
     include: [
       {
@@ -20,9 +24,10 @@ router.get('/', (req, res) => {
           'category_id'
         ]
       }
+     
     ]
   })
-    .then(dbcategoryData => res.json(dbcategoryData))
+    .then(categoryData => res.json(categoryData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -42,12 +47,12 @@ router.get('/:id', (req, res) => {
       attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }]
   })
-    .then(dbcategoryData => {
-      if (!dbcategoryData) {
+    .then(categoryData => {
+      if (!categoryData) {
         res.status(404).json({ message: 'No Category found with this id' });
         return;
       }
-      res.json(dbcategoryData);
+      res.json(categoryData);
     })
     .catch(err => {
       console.log(err);
@@ -60,7 +65,7 @@ router.post('/', (req, res) => {
   Category.create({
     category_name: req.body.category_name
   })
-    .then(dbcategoryData => res.json(dbcategoryData))
+    .then(categoryData => res.json(categoryData))
     .catch(err => {
       console.log(err),
         res.status(500).json(err);
@@ -74,8 +79,8 @@ router.put('/:id', (req, res) => {
         id: req.params.id
       }
     })
-      .then(dbcategoryData => {
-        if (!dbcategoryData) {
+      .then(categoryData => {
+        if (!categoryData) {
           res.status(404).json({ message: 'no category with that id' });
           return;
         }
@@ -94,8 +99,8 @@ router.delete('/:id', (req, res) => {
         id: req.params.id
       }
     })
-      .then(dbcategoryData => {
-        if (!dbcategoryData) {
+      .then(categoryData => {
+        if (!categoryData) {
           res.status(404).json({ message: 'no category with that id' });
           return;
         }

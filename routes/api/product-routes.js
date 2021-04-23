@@ -7,13 +7,20 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products
   Product.findAll({
-    attributes: ['id',
-      'product_name',
-      'price',
-      'stock',
-      'category_id'],
-    include: [{ model: Category }, { model: Tag }]
-  })
+    // attributes: [
+    //   'id',
+    //   'product_name',
+    //   'price',
+    //   'stock',
+    //   'category_id'],
+      include: [
+        Category,
+        {
+          model: Tag,
+          through: ProductTag,
+        },
+      ],
+    })
     .then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
@@ -34,7 +41,7 @@ router.get('/:id', (req, res) => {
       {
         model: Tag,
         through: ProductTag,
-        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+        //attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
       },
     ],
   })
